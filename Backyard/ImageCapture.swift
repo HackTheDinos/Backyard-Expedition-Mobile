@@ -25,10 +25,12 @@ class ImageCapture: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = source
+        picker.allowsEditing = true
         vc.presentViewController(picker, animated: true, completion: nil)
     }
 
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        // TODO: this is clearly not an applicable value
         let error = NSError(domain: "User did cancel", code: 401, userInfo: nil)
         completion?(Result.Error(error))
         picker.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
