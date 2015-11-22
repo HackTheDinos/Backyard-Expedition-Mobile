@@ -68,10 +68,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qm8-7u-EDy">
-                                <rect key="frame" x="20" y="178" width="560" height="82"/>
+                                <rect key="frame" x="20" y="178" width="560" height="122"/>
                                 <animations/>
                                 <string key="text">To make identification easier, please follow these guidelines:
-1) Find a well lit place;
+
+1) Take a picture of the specimen exactly as you found it. If you moved it, try to replicate its original position;
 2) Make sure the specimen is in focus;
 3) Place a ruler or coin beside the specimen.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -189,6 +190,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AI3-U1-zd6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
