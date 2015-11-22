@@ -1,5 +1,5 @@
 # Overview
-Mobile app solution to the Backyard Expedition challenge at Hack the Dinos 2015
+iOS mobile app solution to the Backyard Expedition challenge at Hack the Dinos 2015
 
 ## Presentation
 The presentation at Hack the Dinos:
