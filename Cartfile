@@ -1,0 +1,4 @@
+github "JensRavens/Interstellar" "master"
+github "SnapKit/SnapKit" ~> 0.18.0
+github "xmartlabs/Eureka" ~> 1.2.0
+

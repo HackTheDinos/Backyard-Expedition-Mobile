@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="R9E-av-0G9">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="jVR-gI-tz7">
+            <objects>
+                <navigationController id="R9E-av-0G9" customClass="HomeViewController" customModule="Backyard" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p6d-Xs-2FZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="tTK-kJ-qCL" kind="relationship" relationship="rootViewController" id="8tv-eX-dVV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pki-GP-12J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-326" y="-922"/>
+        </scene>
+        <!--Photo Collection View Controller-->
+        <scene sceneID="t7L-Bb-wIH">
+            <objects>
+                <viewController storyboardIdentifier="PhotoCollection" id="xR1-Qt-fED" customClass="PhotoCollectionViewController" customModule="Backyard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2lH-PU-jEH"/>
+                        <viewControllerLayoutGuide type="bottom" id="uDS-Us-zch"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sht-lQ-buC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="l0x-yr-ePr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NlL-6h-VRx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-326" y="-114"/>
+        </scene>
+        <!--Submission View Controller-->
+        <scene sceneID="FQ7-Il-Xrm">
+            <objects>
+                <viewController storyboardIdentifier="SubmissionView" id="tTK-kJ-qCL" customClass="SubmissionViewController" customModule="Backyard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vOi-m7-D5g"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xsr-tB-Wn4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="isH-Gt-Fzy">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="do7-Cm-KGw">
+                                <rect key="frame" x="20" y="382" width="560" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Get Started"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks for submitting your specimen! We'd be happy to have a look at your find." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPH-rb-U0Q">
+                                <rect key="frame" x="20" y="104" width="560" height="41"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qm8-7u-EDy">
+                                <rect key="frame" x="20" y="178" width="560" height="82"/>
+                                <animations/>
+                                <string key="text">To make identification easier, please follow these guidelines:
+1) Find a well lit place;
+2) Make sure the specimen is in focus;
+3) Place a ruler or coin beside the specimen.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please note that we do not perform appraisals on specimens and cannot tell you the value of a fossil." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t83-yq-KX0">
+                                <rect key="frame" x="20" y="576" width="560" height="14"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="do7-Cm-KGw" secondAttribute="leading" id="HvZ-kB-Nm9"/>
+                            <constraint firstItem="do7-Cm-KGw" firstAttribute="top" secondItem="qm8-7u-EDy" secondAttribute="bottom" priority="750" constant="122" id="JRV-KH-aPG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qm8-7u-EDy" secondAttribute="trailing" id="KLM-rJ-uFh"/>
+                            <constraint firstItem="cPH-rb-U0Q" firstAttribute="top" secondItem="vOi-m7-D5g" secondAttribute="bottom" constant="40" id="Mlx-Dc-D3a"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="t83-yq-KX0" secondAttribute="trailing" id="N5F-tP-Z72"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="t83-yq-KX0" secondAttribute="leading" id="R68-Fq-86N"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="qm8-7u-EDy" secondAttribute="leading" id="Ue3-ri-biX"/>
+                            <constraint firstItem="Xsr-tB-Wn4" firstAttribute="top" secondItem="t83-yq-KX0" secondAttribute="bottom" constant="10" id="VFC-51-OFg"/>
+                            <constraint firstItem="qm8-7u-EDy" firstAttribute="top" secondItem="cPH-rb-U0Q" secondAttribute="bottom" constant="33" id="ZVv-46-2xU"/>
+                            <constraint firstItem="t83-yq-KX0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="do7-Cm-KGw" secondAttribute="bottom" constant="20" id="gyH-WQ-L19"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="cPH-rb-U0Q" secondAttribute="leading" id="ig9-oh-ePa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cPH-rb-U0Q" secondAttribute="trailing" id="muv-kq-iOp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="do7-Cm-KGw" secondAttribute="trailing" id="vMV-bj-i3F"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="R1i-e8-dBj"/>
+                    <connections>
+                        <outlet property="finePrintLabel" destination="t83-yq-KX0" id="zB3-yL-Ip9"/>
+                        <outlet property="getStartedButton" destination="do7-Cm-KGw" id="rsV-mH-WmW"/>
+                        <outlet property="instructionsLabel" destination="qm8-7u-EDy" id="lEg-RI-qDb"/>
+                        <outlet property="titleLabel" destination="cPH-rb-U0Q" id="goM-xR-zkE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s0A-9v-FwR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="368" y="-922"/>
+        </scene>
+        <!--Submission Photos Controller-->
+        <scene sceneID="wd3-JK-VNN">
+            <objects>
+                <viewController storyboardIdentifier="SubmissionPhotos" id="K6v-UG-Iha" customClass="SubmissionPhotosController" customModule="Backyard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4mU-R6-0Kh"/>
+                        <viewControllerLayoutGuide type="bottom" id="0PI-wI-qfr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gtD-vR-6co">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="td0-Gp-ipb">
+                                <rect key="frame" x="20" y="550" width="560" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Add Photo"/>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="td0-Gp-ipb" secondAttribute="trailing" id="IjB-py-dRT"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="td0-Gp-ipb" secondAttribute="leading" id="U4K-Yi-jhD"/>
+                            <constraint firstItem="0PI-wI-qfr" firstAttribute="top" secondItem="td0-Gp-ipb" secondAttribute="bottom" constant="20" id="atB-mB-PBG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addPhotoButton" destination="td0-Gp-ipb" id="kdO-Sl-5ae"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SBs-xo-5l3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1049" y="-922"/>
+        </scene>
+        <!--Submission Form Controller-->
+        <scene sceneID="qse-9I-SWc">
+            <objects>
+                <viewController storyboardIdentifier="SubmissionForm" id="U3M-OO-YTX" customClass="SubmissionFormController" customModule="Backyard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nNj-71-ORz"/>
+                        <viewControllerLayoutGuide type="bottom" id="pd6-TI-47z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rGu-Nz-GhL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AI3-U1-zd6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1750" y="-922"/>
+        </scene>
+        <!--Submission Review Controller-->
+        <scene sceneID="hqL-jC-lcu">
+            <objects>
+                <viewController storyboardIdentifier="SubmissionReview" id="GyX-h9-XK2" customClass="SubmissionReviewController" customModule="Backyard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9lT-d9-fyf"/>
+                        <viewControllerLayoutGuide type="bottom" id="6M4-ry-uve"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rb7-Ee-WCa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZK-H7-7BA">
+                                <rect key="frame" x="20" y="550" width="560" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Submit"/>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6M4-ry-uve" firstAttribute="top" secondItem="WZK-H7-7BA" secondAttribute="bottom" constant="20" id="Pfz-6h-7bu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WZK-H7-7BA" secondAttribute="trailing" id="UuX-5l-SGr"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="WZK-H7-7BA" secondAttribute="leading" id="kQA-4B-DiF"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BKg-ZA-36p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="483" y="388"/>
+        </scene>
+    </scenes>
+</document>
