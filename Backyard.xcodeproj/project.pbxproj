@@ -24,8 +24,6 @@
 		245904451C0135BC00FC878B /* Interstellar.framework.dSYM in Copy Framework Symbols */ = {isa = PBXBuildFile; fileRef = 245904411C0135AC00FC878B /* Interstellar.framework.dSYM */; };
 		245904491C013A3600FC878B /* ImageCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245904481C013A3600FC878B /* ImageCapture.swift */; };
 		24911DD71C01275100E18C65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24911DD61C01275100E18C65 /* AppDelegate.swift */; };
-		24911DD91C01275100E18C65 /* unused_RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24911DD81C01275100E18C65 /* unused_RootViewController.swift */; };
-		24911DDB1C01275100E18C65 /* unused_DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24911DDA1C01275100E18C65 /* unused_DataViewController.swift */; };
 		24911DE01C01275100E18C65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24911DDE1C01275100E18C65 /* Main.storyboard */; };
 		24911DE21C01275100E18C65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24911DE11C01275100E18C65 /* Assets.xcassets */; };
 		24911DE51C01275100E18C65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24911DE31C01275100E18C65 /* LaunchScreen.storyboard */; };
@@ -77,8 +75,6 @@
 		245904481C013A3600FC878B /* ImageCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCapture.swift; sourceTree = "<group>"; };
 		24911DD31C01275100E18C65 /* Backyard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backyard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24911DD61C01275100E18C65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		24911DD81C01275100E18C65 /* unused_RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unused_RootViewController.swift; sourceTree = "<group>"; };
-		24911DDA1C01275100E18C65 /* unused_DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unused_DataViewController.swift; sourceTree = "<group>"; };
 		24911DDF1C01275100E18C65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		24911DE11C01275100E18C65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		24911DE41C01275100E18C65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -130,8 +126,6 @@
 		245904471C013A1D00FC878B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				24911DD81C01275100E18C65 /* unused_RootViewController.swift */,
-				24911DDA1C01275100E18C65 /* unused_DataViewController.swift */,
 				2440C26C1C01835A00774E15 /* HomeViewController.swift */,
 				2440C26A1C017E3D00774E15 /* PhotoCollectionViewController.swift */,
 				2440C2631C01716500774E15 /* SubmissionViewController.swift */,
@@ -323,13 +317,11 @@
 			files = (
 				2440C2681C0171F500774E15 /* SubmissionFormController.swift in Sources */,
 				245904491C013A3600FC878B /* ImageCapture.swift in Sources */,
-				24911DD91C01275100E18C65 /* unused_RootViewController.swift in Sources */,
 				2440C26B1C017E3D00774E15 /* PhotoCollectionViewController.swift in Sources */,
 				2440C2661C0171CA00774E15 /* SubmissionReviewController.swift in Sources */,
 				2440C26D1C01835A00774E15 /* HomeViewController.swift in Sources */,
 				2440C2641C01716500774E15 /* SubmissionViewController.swift in Sources */,
 				2440C2621C01514100774E15 /* Submission.swift in Sources */,
-				24911DDB1C01275100E18C65 /* unused_DataViewController.swift in Sources */,
 				24911DD71C01275100E18C65 /* AppDelegate.swift in Sources */,
 				2458A5841C01D59800569580 /* CustomCells.swift in Sources */,
 				2440C26F1C0191F800774E15 /* SubmissionPhotosController.swift in Sources */,

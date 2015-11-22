@@ -32,6 +32,7 @@ class SubmissionFormController: FormViewController {
             target: self,
             action: "nextButtonTapped:")
         self.navigationItem.rightBarButtonItem = nextButton
+        nextButton.enabled = submission?.contactEmail?.isEmpty == false ?? false
 
         form
             +++ Section(NSLocalizedString("What do you think this is?", comment:"Form section title"))
@@ -63,7 +64,8 @@ class SubmissionFormController: FormViewController {
             .onChange { [weak self] row in
                 self?.submission?.inquiryText = row.value
             }
-            +++ Section(NSLocalizedString("Where was it found?", comment: "Form section title"))
+            +++ Section(header:NSLocalizedString("Where was it found?", comment: "Form section title"),
+                footer:NSLocalizedString("Note: if you moved the specimen, use the location where you originally retrieved it.", comment: "Form section footer"))
             <<< LocationRow(){ [weak self] row in
                 row.tag = "LocationRowTag"
                 row.title = "Location"
@@ -81,6 +83,7 @@ class SubmissionFormController: FormViewController {
             }
             .onChange { [weak self] row in
                 self?.submission?.contactEmail = row.value
+                self?.nextButton.enabled = (row.value?.isEmpty == false)
             }
 
         LocationManager.sharedInstance.locationSignal.next { [weak self] (location) -> Void in

@@ -66,8 +66,8 @@ extension ImageCapture {
 extension ImageCapture {
     // this is a long running (though async) task.
     static func saveImage(source: (UIImage,NSURL), completion: (Result<NSURL>->Void)){
-        if let data = UIImagePNGRepresentation(source.0) {
-            let path = source.1.URLByAppendingPathExtension("png")
+        if let data = UIImageJPEGRepresentation(source.0, 0.7) {
+            let path = source.1.URLByAppendingPathExtension("jpg")
             do {
                 try data.writeToURL(path, options: .AtomicWrite)
                 completion(.Success(path))

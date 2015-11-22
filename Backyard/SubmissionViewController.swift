@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import QuartzCore
 
 // TODO: need to catch this back button and present confirmation dialog
 // and delete any assets if left.
@@ -20,9 +21,13 @@ class SubmissionViewController: UIViewController {
     @IBOutlet weak var finePrintLabel: UILabel!
 
     override func viewDidLoad() {
-        self.title = NSLocalizedString("Specimen Submission", comment: "Submission view title")
-        // TODO: localize each of the user-facing elements
+        self.title = NSLocalizedString("Specimen", comment: "Submission view title")
 
+        // this is ugly...but I haven't had time to make a nice styling class
+        getStartedButton.backgroundColor = (UIApplication.sharedApplication().delegate as! AppDelegate).blueColor
+        getStartedButton.tintColor = UIColor.whiteColor()
+        getStartedButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        getStartedButton.layer.cornerRadius = 5.0
         getStartedButton.addTarget(self, action: "getStartedTapped:", forControlEvents: .TouchUpInside)
     }
 }

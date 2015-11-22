@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import QuartzCore
+
 import SnapKit
 import Interstellar
 
@@ -16,12 +18,18 @@ class SubmissionPhotosController: UIViewController {
     
     var photosViewController: PhotoCollectionViewController?
     @IBOutlet weak var addPhotoButton: UIButton!
+    @IBOutlet weak var noPhotosPlaceholderView: UIView!
     var nextButton: UIBarButtonItem!
 
     let getImageSignal = Signal<UIImagePickerControllerSourceType>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        addPhotoButton.backgroundColor = (UIApplication.sharedApplication().delegate as! AppDelegate).blueColor
+        addPhotoButton.tintColor = UIColor.whiteColor()
+        addPhotoButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        addPhotoButton.layer.cornerRadius = 5.0
 
         self.title = NSLocalizedString("Add Photos", comment: "Photo controller title")
 
@@ -61,6 +69,28 @@ class SubmissionPhotosController: UIViewController {
 
                             self?.submission?.photos.append(url)
                             self?.photosViewController?.collectionView?.reloadData()
+                            
+                            if let isHidden = self?.noPhotosPlaceholderView.hidden where isHidden == false {
+                                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                                    self?.noPhotosPlaceholderView.alpha = 0
+                                    }, completion: { (result) -> Void in
+                                        self?.noPhotosPlaceholderView.hidden = true
+                                        self?.noPhotosPlaceholderView.alpha = 1
+                                })
+                            }
+                            switch self?.submission?.photos.count ?? 0 {
+                            case 0:
+                                self?.addPhotoButton.setTitle(NSLocalizedString("Add Photo", comment: "Add photo button"), forState: .Normal)
+                                self?.addPhotoButton.enabled = true
+                                self?.nextButton.enabled = true
+                            case 1..<5:
+                                self?.addPhotoButton.setTitle(NSLocalizedString("Add More Photos", comment: "Add photo button"), forState: .Normal)
+                                self?.addPhotoButton.enabled = true
+                                self?.nextButton.enabled = true
+                            default:
+                                self?.addPhotoButton.setTitle(NSLocalizedString("Enough Photos", comment: "Add photo button"), forState: .Normal)
+                                self?.addPhotoButton.enabled = false
+                            }
                         }
                         .error { error in
                             print("error saving image: \(error)")
@@ -80,6 +110,12 @@ class SubmissionPhotosController: UIViewController {
             target: self,
             action: "nextButtonTapped:")
         self.navigationItem.rightBarButtonItem = nextButton
+
+        nextButton.enabled = false
+        if let submission = self.submission where submission.photos.count > 0 {
+            noPhotosPlaceholderView.hidden = true
+            nextButton.enabled = true
+        }
     }
 }
 
