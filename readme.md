@@ -1,6 +1,10 @@
 # Overview
 Mobile app solution to the Backyard Expedition challenge at Hack the Dinos 2015
 
+## Presentation
+The presentation at Hack the Dinos:
+https://goo.gl/a8CdCo
+
 ## Setup
 This project uses [Carthage][carthage] to manage dependencies. These
 steps should get the project building shortly:
@@ -13,7 +17,7 @@ steps should get the project building shortly:
 
 ## TODO
 The project is partially finished. Several components are necessary to
-make this a useful, functioning application. Specifially, the collected
+make this a useful, functioning application. Specifically, the collected
 images and metadata need a location for submission (they are only stored
 locally at the moment)
 
