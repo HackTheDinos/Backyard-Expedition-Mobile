@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         loadSubmissionSignal.update(Submission.submissionDirectory())
 
+        configureAppearance()
+
         return true
     }
 
@@ -56,7 +58,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
+
+extension AppDelegate {
+    var blueColor:UIColor { return UIColor(red: 0.02, green: 0.23, blue: 0.8, alpha: 1.0) }
+
+    func configureAppearance() {
+        UINavigationBar.appearance().barTintColor = blueColor
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+    }
+}

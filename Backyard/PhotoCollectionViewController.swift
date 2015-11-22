@@ -104,9 +104,6 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout, UIC
             }
             photoSignal.update(photoUrl)
         }
-
-//        cell.textLabel?.text = "\(indexPath.section):\(indexPath.row)"
-//        cell.imageView?.image = UIImage(named: "circle")
         
         return cell
     }
