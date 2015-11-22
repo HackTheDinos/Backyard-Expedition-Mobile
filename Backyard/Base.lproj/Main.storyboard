@@ -184,6 +184,9 @@
                                 <rect key="frame" x="20" y="550" width="560" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitButtonTapped:" destination="GyX-h9-XK2" eventType="touchUpInside" id="q79-5h-bJ7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>
@@ -194,6 +197,9 @@
                             <constraint firstAttribute="leadingMargin" secondItem="WZK-H7-7BA" secondAttribute="leading" id="kQA-4B-DiF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="submitButton" destination="WZK-H7-7BA" id="mMP-5Y-Cl4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BKg-ZA-36p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -35,7 +35,7 @@ class SubmissionFormController: FormViewController {
 
         form
             +++ Section(NSLocalizedString("What do you think this is?", comment:"Form section title"))
-            <<< PickerInlineRow<String>() { (row : PickerInlineRow<String>) -> Void in
+            <<< PickerInlineRow<String>() { [weak self] (row : PickerInlineRow<String>) -> Void in
                 var options = [String]()
                 options.append("Fossil")
                 options.append("Egg")
@@ -47,42 +47,44 @@ class SubmissionFormController: FormViewController {
                 row.options.append("Something else")
 
                 row.title = "It might be..."
-                row.value = row.options.first
+                row.value = self?.submission?.inquiryId ?? row.options.first
                 row.tag = RowTag.InquiryId.rawValue
             }
             .onChange { [weak self] row in
                 self?.submission?.inquiryId = row.value
             }
             +++ Section(NSLocalizedString("Description", comment: "Form section title"))
-            <<< TextAreaRow() { row in
+            <<< TextAreaRow() { [weak self] row in
                 row.placeholder = "Tell us about your find..."
                 row.tag = RowTag.InquiryText.rawValue
+                row.value = self?.submission?.inquiryText
             }
             // this is not very efficient...should probably rework this.
             .onChange { [weak self] row in
                 self?.submission?.inquiryText = row.value
             }
             +++ Section(NSLocalizedString("Where was it found?", comment: "Form section title"))
-            <<< LocationRow(){ row in
+            <<< LocationRow(){ [weak self] row in
                 row.tag = "LocationRowTag"
                 row.title = "Location"
                 row.tag = RowTag.InquiryLocation.rawValue
-                row.value = LocationManager.sharedInstance.currentLocation
+                row.value = self?.submission?.inquiryLocation ?? LocationManager.sharedInstance.currentLocation
             }
             .onChange { [weak self] row in
                 self?.submission?.inquiryLocation = row.value
             }
             +++ Section(NSLocalizedString("Contact Information", comment: "Form section title"))
-            <<< EmailRow() { row in
+            <<< EmailRow() { [weak self] row in
                 row.placeholder = "Your email address"
                 row.tag = RowTag.InquiryContact.rawValue
+                row.value = self?.submission?.contactEmail
             }
             .onChange { [weak self] row in
                 self?.submission?.contactEmail = row.value
             }
 
         LocationManager.sharedInstance.locationSignal.next { [weak self] (location) -> Void in
-            if let locationRow = self!.form.rowByTag("LocationRowTag") as? LocationRow {
+            if let weakSelf = self, locationRow = weakSelf.form.rowByTag("LocationRowTag") as? LocationRow {
                 locationRow.value = location
                 locationRow.updateCell()
             }

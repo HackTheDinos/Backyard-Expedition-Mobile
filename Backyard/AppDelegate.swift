@@ -7,15 +7,31 @@
 //
 
 import UIKit
+import Interstellar
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var submissions = [Submission]()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+
+        let loadSubmissionSignal = Signal<NSURL>()
+        loadSubmissionSignal
+        .ensure(Thread.background)
+        .flatMap(Submission.loadSubmissions)
+        .ensure(Thread.main)
+        .next { [weak self] submissions in
+            self?.submissions = submissions
+            print("loaded submissions: \(submissions)")
+        }
+        .error { error in
+            print("there was an error loading the submissions: \(error)")
+        }
+        loadSubmissionSignal.update(Submission.submissionDirectory())
+
         return true
     }
 

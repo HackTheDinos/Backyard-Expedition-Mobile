@@ -142,7 +142,7 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
     public func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 
         let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
-        pinAnnotationView.pinColor = MKPinAnnotationColor.Red
+        pinAnnotationView.pinTintColor = MKPinAnnotationView.redPinColor()
         pinAnnotationView.draggable = false
         pinAnnotationView.animatesDrop = true
         return pinAnnotationView
