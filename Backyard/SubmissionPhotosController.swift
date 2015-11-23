@@ -54,51 +54,34 @@ class SubmissionPhotosController: UIViewController {
         addPhotoButton.addTarget(self, action: "addPhotoTapped:", forControlEvents: .TouchUpInside)
         getImageSignal
             .flatMap(ImageCapture(viewController: self).takePicture)
-            .next { [weak self] image in
-                // here's the picture!
-                print("got an image: \(image)")
+            .flatMap(self.submission!.addPhotoData)
+            .next { [weak self] url in
+                print("finished saving image at url: \(url)")
 
-                // save it to the submission and update our photos controller
-                if let imageBaseName = self?.submission?.recordId.UUIDString.stringByAppendingString("_\(NSUUID().UUIDString)") {
-                    let saveSignal = Signal<(UIImage, NSURL)>()
-                    saveSignal
-                        .ensure(Thread.background)
-                        .flatMap(ImageCapture.saveImage)
-                        .ensure(Thread.main)
-                        .next { [weak self] url in
-                            print("finished saving image at url: \(url)")
+                if let index = self?.submission?.photos.endIndex {
+                    self?.photosViewController?.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forRow: index - 1, inSection: 0)])
+                }
 
-                            self?.submission?.photos.append(url)
-                            if let index = self?.submission?.photos.endIndex {
-                                self?.photosViewController?.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
-                            }
-                            if let isHidden = self?.noPhotosPlaceholderView.hidden where isHidden == false {
-                                UIView.animateWithDuration(0.3, animations: { () -> Void in
-                                    self?.noPhotosPlaceholderView.alpha = 0
-                                    }, completion: { (result) -> Void in
-                                        self?.noPhotosPlaceholderView.hidden = true
-                                        self?.noPhotosPlaceholderView.alpha = 1
-                                })
-                            }
-                            switch self?.submission?.photos.count ?? 0 {
-                            case 0:
-                                self?.addPhotoButton.setTitle(NSLocalizedString("Add Photo", comment: "Add photo button"), forState: .Normal)
-                                self?.addPhotoButton.enabled = true
-                                self?.nextButton.enabled = true
-                            case 1..<5:
-                                self?.addPhotoButton.setTitle(NSLocalizedString("Add More Photos", comment: "Add photo button"), forState: .Normal)
-                                self?.addPhotoButton.enabled = true
-                                self?.nextButton.enabled = true
-                            default:
-                                self?.addPhotoButton.setTitle(NSLocalizedString("Enough Photos", comment: "Add photo button"), forState: .Normal)
-                                self?.addPhotoButton.enabled = false
-                            }
-                        }
-                        .error { error in
-                            print("error saving image: \(error)")
-                        }
-                    let photoUrl = ImageCapture.photosDirectory().URLByAppendingPathComponent(imageBaseName)
-                    saveSignal.update((image, photoUrl))
+                if let isHidden = self?.noPhotosPlaceholderView.hidden where isHidden == false {
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        self?.noPhotosPlaceholderView.alpha = 0
+                        }, completion: { (result) -> Void in
+                            self?.noPhotosPlaceholderView.hidden = true
+                            self?.noPhotosPlaceholderView.alpha = 1
+                    })
+                }
+                switch self?.submission?.photos.count ?? 0 {
+                case 0:
+                    self?.addPhotoButton.setTitle(NSLocalizedString("Add Photo", comment: "Add photo button"), forState: .Normal)
+                    self?.addPhotoButton.enabled = true
+                    self?.nextButton.enabled = true
+                case 1..<5:
+                    self?.addPhotoButton.setTitle(NSLocalizedString("Add More Photos", comment: "Add photo button"), forState: .Normal)
+                    self?.addPhotoButton.enabled = true
+                    self?.nextButton.enabled = true
+                default:
+                    self?.addPhotoButton.setTitle(NSLocalizedString("Enough Photos", comment: "Add photo button"), forState: .Normal)
+                    self?.addPhotoButton.enabled = false
                 }
             }
             .error { error in
@@ -140,8 +123,10 @@ extension SubmissionPhotosController {
                 preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { [weak self] action in
-                // TODO: delete the submission
-                // pop the view
+                if let submission = self?.submission {
+                    Submission.deleteSubmission(submission) // NOTE: this deletes the backing store, not the in-memory object.
+                    self?.submission = nil
+                }
                 self?.navigationController?.popViewControllerAnimated(true)
                 }))
             self.presentViewController(alert, animated: true, completion: nil)

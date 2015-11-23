@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import CoreLocation
 import Interstellar
 
@@ -116,6 +117,26 @@ extension Submission {
         }
     }
 
+    static func deleteSubmission(submission: Submission) -> Result<NSURL> {
+        // remove all the photos
+        for photoUrl in submission.photos {
+            submission.removePhoto(photoUrl, completion:{_ in})
+        }
+
+        // remove the submission url
+        let path = self.submissionDirectory()
+            .URLByAppendingPathComponent(submission.recordId.UUIDString)
+            .URLByAppendingPathExtension("bin")
+        do {
+            let fm = NSFileManager.defaultManager()
+            try fm.removeItemAtURL(path)
+            return .Success(path)
+        }
+        catch {
+            return .Error(error)
+        }
+    }
+
     func save(source: NSURL, completion: (Result<NSURL>->Void)){
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         let path = source
@@ -140,6 +161,46 @@ extension Submission {
             }
         } catch let error {
             // otherwise, bail out
+            completion(.Error(error))
+        }
+    }
+
+    // save the photo data to disk, update our photos array, then return the saved url
+    func addPhotoData(source: UIImage, completion: (Result<NSURL> -> Void)) {
+        // save it to the submission and update our photos controller
+        let imageBaseName = self.recordId.UUIDString.stringByAppendingString("_\(NSUUID().UUIDString)")
+        let saveSignal = Signal<(UIImage, NSURL)>()
+        saveSignal
+            .ensure(Thread.background)
+            .flatMap(ImageCapture.saveImage)
+            .ensure(Thread.main)
+            .next { url in
+                self.photos.append(url)
+                completion(.Success(url))
+            }
+            .error { error in
+                completion(.Error(error))
+            }
+
+        let photoUrl = ImageCapture.photosDirectory().URLByAppendingPathComponent(imageBaseName)
+        saveSignal.update((source, photoUrl))
+    }
+
+    func removePhoto(source: NSURL, completion: (Result<NSURL> -> Void)) {
+        if let index = photos.indexOf(source) {
+            photos.removeAtIndex(index)
+
+            let fm = NSFileManager.defaultManager()
+            do {
+                try fm.removeItemAtURL(source)
+                completion(.Success(source))
+            }
+            catch {
+                completion(.Error(error))
+            }
+
+        } else {
+            let error = NSError(domain: "net.robertcarlsen.backyard", code: 404, userInfo: [NSLocalizedDescriptionKey: "photo url not found in submission"])
             completion(.Error(error))
         }
     }

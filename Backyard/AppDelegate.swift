@@ -23,10 +23,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         .ensure(Thread.background)
         .flatMap(Submission.loadSubmissions)
         .ensure(Thread.main)
+        .map { submissions -> [Submission] in
+            print("loaded submissions: \(submissions)")
+            return submissions
+        }
         .next { [weak self] submissions in
             self?.submissions = submissions
-            print("loaded submissions: \(submissions)")
         }
+//        .map {submissions in
+//            for submission in submissions {
+//                let result = Submission.deleteSubmission(submission)
+//                switch result {
+//                case .Error(let error):
+//                    print("error deleting the submission: \(error)")
+//                case .Success(let url):
+//                    print("deleted the submission: \(url)")
+//                }
+//            }
+//        }
         .error { error in
             print("there was an error loading the submissions: \(error)")
         }
