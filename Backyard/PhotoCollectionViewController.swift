@@ -107,6 +107,21 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout, UIC
         
         return cell
     }
-
-
 }
+
+
+/*
+// would like to enable deletion of the photo...but needs to be more than just a simple tap
+extension PhotoCollectionViewController: UICollectionViewDelegate {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // prompt to remove the item...then remove the item (and delete the file, but i think the Submission should do that.-
+        // actually, I think that the Submission should manage saving the file to disk, too.)
+        let row = indexPath.row
+        let bounds = (self.submission?.photos.startIndex, self.submission?.photos.endIndex)
+        if row >= bounds.0 && row <= bounds.1 {
+            self.submission?.photos.removeAtIndex(row)
+            self.collectionView?.deleteItemsAtIndexPaths([indexPath])
+        }
+    }
+}
+*/

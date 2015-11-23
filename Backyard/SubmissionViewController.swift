@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import QuartzCore
 
-// TODO: need to catch this back button and present confirmation dialog
-// and delete any assets if left.
 
 /// Entry point for a new submission
 class SubmissionViewController: UIViewController {

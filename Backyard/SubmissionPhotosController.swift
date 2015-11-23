@@ -20,6 +20,7 @@ class SubmissionPhotosController: UIViewController {
     @IBOutlet weak var addPhotoButton: UIButton!
     @IBOutlet weak var noPhotosPlaceholderView: UIView!
     var nextButton: UIBarButtonItem!
+    var cancelButton: UIBarButtonItem!
 
     let getImageSignal = Signal<UIImagePickerControllerSourceType>()
 
@@ -68,8 +69,9 @@ class SubmissionPhotosController: UIViewController {
                             print("finished saving image at url: \(url)")
 
                             self?.submission?.photos.append(url)
-                            self?.photosViewController?.collectionView?.reloadData()
-                            
+                            if let index = self?.submission?.photos.endIndex {
+                                self?.photosViewController?.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+                            }
                             if let isHidden = self?.noPhotosPlaceholderView.hidden where isHidden == false {
                                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                                     self?.noPhotosPlaceholderView.alpha = 0
@@ -116,6 +118,9 @@ class SubmissionPhotosController: UIViewController {
             noPhotosPlaceholderView.hidden = true
             nextButton.enabled = true
         }
+
+        cancelButton = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonTapped:")
+        self.navigationItem.leftBarButtonItem = cancelButton
     }
 }
 
@@ -125,6 +130,24 @@ extension SubmissionPhotosController {
         let formController = UIStoryboard.getViewController(identifier: "SubmissionForm") as! SubmissionFormController
         formController.submission = submission
         self.navigationController?.pushViewController(formController, animated: true)
+    }
+
+    func cancelButtonTapped(sender: UIBarButtonItem?) {
+        if self.submission?.photos.count > 0 {
+            // present an alert to confirm
+            let alert = UIAlertController(title: NSLocalizedString("Remove Submission", comment: "Cancel alert title"),
+                message: NSLocalizedString("Are you sure you would like to delete this submission?", comment: "Cancel alert message"),
+                preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { [weak self] action in
+                // TODO: delete the submission
+                // pop the view
+                self?.navigationController?.popViewControllerAnimated(true)
+                }))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
 
     func addPhotoTapped(sender: UIButton?) {
