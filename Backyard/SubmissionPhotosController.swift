@@ -27,7 +27,7 @@ class SubmissionPhotosController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addPhotoButton.backgroundColor = (UIApplication.sharedApplication().delegate as! AppDelegate).blueColor
+        addPhotoButton.backgroundColor = UIColor.appBlueColor()
         addPhotoButton.tintColor = UIColor.whiteColor()
         addPhotoButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         addPhotoButton.layer.cornerRadius = 5.0

@@ -21,7 +21,7 @@ class SubmissionReviewController: UIViewController {
         super.viewDidLoad()
         self.title = NSLocalizedString("Review", comment: "Review view title")
 
-        submitButton.backgroundColor = (UIApplication.sharedApplication().delegate as! AppDelegate).blueColor
+        submitButton.backgroundColor = UIColor.appBlueColor()
         submitButton.tintColor = UIColor.whiteColor()
         submitButton.contentEdgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         submitButton.layer.cornerRadius = 5.0
@@ -67,6 +67,7 @@ extension SubmissionReviewController {
         self.submission?.save(Submission.submissionDirectory(), completion: { result in
             switch result {
             case .Success(let url):
+                AppDelegate.currentAppModel().submissions.append(self.submission!)
                 print("successfully saved the submission: \(url)")
             case .Error(let error):
                 print("error saving the submission: \(error)")

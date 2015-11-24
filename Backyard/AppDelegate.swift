@@ -13,39 +13,11 @@ import Interstellar
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var submissions = [Submission]()
+    var appModel: AppModel!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-
-        let loadSubmissionSignal = Signal<NSURL>()
-        loadSubmissionSignal
-        .ensure(Thread.background)
-        .flatMap(Submission.loadSubmissions)
-        .ensure(Thread.main)
-        .map { submissions -> [Submission] in
-            print("loaded submissions: \(submissions)")
-            return submissions
-        }
-        .next { [weak self] submissions in
-            self?.submissions = submissions
-        }
-//        .map {submissions in
-//            for submission in submissions {
-//                let result = Submission.deleteSubmission(submission)
-//                switch result {
-//                case .Error(let error):
-//                    print("error deleting the submission: \(error)")
-//                case .Success(let url):
-//                    print("deleted the submission: \(url)")
-//                }
-//            }
-//        }
-        .error { error in
-            print("there was an error loading the submissions: \(error)")
-        }
-        loadSubmissionSignal.update(Submission.submissionDirectory())
-
+        appModel = AppModel()
         configureAppearance()
 
         return true
@@ -76,12 +48,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate {
-    var blueColor:UIColor { return UIColor(red: 0.02, green: 0.23, blue: 0.8, alpha: 1.0) }
+    static func currentAppModel () -> AppModel {
+        return (UIApplication.sharedApplication().delegate as! AppDelegate).appModel
+    }
 
     func configureAppearance() {
-        UINavigationBar.appearance().barTintColor = blueColor
+        UINavigationBar.appearance().barTintColor = UIColor.appBlueColor()
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+    }
+}
+
+extension UIColor {
+    public static func appBlueColor() -> UIColor {
+        // looking for a way to cache this value
+        return UIColor(red: 0.02, green: 0.23, blue: 0.8, alpha: 1.0)
     }
 }
 

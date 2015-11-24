@@ -31,9 +31,9 @@ enum SubmissionKey: String {
 
 class Submission: NSObject, NSCoding {
     let recordId: NSUUID
+    var date: NSDate
 
     var fossilId: String?
-    var date: NSDate?
     var contactEmail: String?
 
     var inquiryId: String?
@@ -82,12 +82,12 @@ class Submission: NSObject, NSCoding {
         }
         self.init(recordId: recordId)
         fossilId = decoder.decodeObjectForKey(SubmissionKey.FossilId.rawValue) as? String
-        date = decoder.decodeObjectForKey(SubmissionKey.Date.rawValue) as? NSDate
         contactEmail = decoder.decodeObjectForKey(SubmissionKey.Email.rawValue) as? String
         inquiryId = decoder.decodeObjectForKey(SubmissionKey.InquiryId.rawValue) as? String
         inquiryText = decoder.decodeObjectForKey(SubmissionKey.InquiryText.rawValue) as? String
         inquiryLocation = decoder.decodeObjectForKey(SubmissionKey.Location.rawValue) as? CLLocation
         photos = decoder.decodeObjectForKey(SubmissionKey.Photos.rawValue) as? [NSURL] ?? [NSURL]()
+        date = decoder.decodeObjectForKey(SubmissionKey.Date.rawValue) as? NSDate ?? NSDate()
     }
 }
 
@@ -182,7 +182,7 @@ extension Submission {
                 completion(.Error(error))
             }
 
-        let photoUrl = ImageCapture.photosDirectory().URLByAppendingPathComponent(imageBaseName)
+        let photoUrl = NSURL(fileURLWithPath: imageBaseName, relativeToURL: ImageCapture.photosDirectory())
         saveSignal.update((source, photoUrl))
     }
 
@@ -203,5 +203,24 @@ extension Submission {
             let error = NSError(domain: "net.robertcarlsen.backyard", code: 404, userInfo: [NSLocalizedDescriptionKey: "photo url not found in submission"])
             completion(.Error(error))
         }
+    }
+
+    func loadPhoto (url: NSURL) -> Signal<UIImage?> {
+        let photoSignal = Signal<NSURL>()
+        defer { photoSignal.update(url) }
+        return photoSignal
+            .ensure(Thread.background)
+            .flatMap { url in
+                return NSURL(fileURLWithPath: url.relativeString!, relativeToURL: ImageCapture.photosDirectory())
+            }
+            .flatMap { (url: NSURL) -> UIImage? in
+                // load the file from disk, and return image data
+                guard let data = NSData(contentsOfURL: url) else {
+                    return nil
+                }
+                // really need to build in caching.
+                return UIImage(data: data, scale: 0)
+            }
+            .ensure(Thread.main)
     }
 }

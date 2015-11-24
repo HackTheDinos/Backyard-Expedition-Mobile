@@ -28,6 +28,8 @@
 		24911DE21C01275100E18C65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24911DE11C01275100E18C65 /* Assets.xcassets */; };
 		24911DE51C01275100E18C65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24911DE31C01275100E18C65 /* LaunchScreen.storyboard */; };
 		24911DF01C01275100E18C65 /* BackyardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24911DEF1C01275100E18C65 /* BackyardTests.swift */; };
+		24C64B6F1C041F5B00857848 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C64B6E1C041F5B00857848 /* AppModel.swift */; };
+		24C64B711C04AFAB00857848 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C64B701C04AFAB00857848 /* ListController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,8 @@
 		24911DEB1C01275100E18C65 /* BackyardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BackyardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24911DEF1C01275100E18C65 /* BackyardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackyardTests.swift; sourceTree = "<group>"; };
 		24911DF11C01275100E18C65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		24C64B6E1C041F5B00857848 /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		24C64B701C04AFAB00857848 /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				2440C2611C01514100774E15 /* Submission.swift */,
+				24C64B6E1C041F5B00857848 /* AppModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 				2440C26E1C0191F800774E15 /* SubmissionPhotosController.swift */,
 				2440C2671C0171F500774E15 /* SubmissionFormController.swift */,
 				2440C2651C0171CA00774E15 /* SubmissionReviewController.swift */,
+				24C64B701C04AFAB00857848 /* ListController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -319,9 +325,11 @@
 				245904491C013A3600FC878B /* ImageCapture.swift in Sources */,
 				2440C26B1C017E3D00774E15 /* PhotoCollectionViewController.swift in Sources */,
 				2440C2661C0171CA00774E15 /* SubmissionReviewController.swift in Sources */,
+				24C64B711C04AFAB00857848 /* ListController.swift in Sources */,
 				2440C26D1C01835A00774E15 /* HomeViewController.swift in Sources */,
 				2440C2641C01716500774E15 /* SubmissionViewController.swift in Sources */,
 				2440C2621C01514100774E15 /* Submission.swift in Sources */,
+				24C64B6F1C041F5B00857848 /* AppModel.swift in Sources */,
 				24911DD71C01275100E18C65 /* AppDelegate.swift in Sources */,
 				2458A5841C01D59800569580 /* CustomCells.swift in Sources */,
 				2440C26F1C0191F800774E15 /* SubmissionPhotosController.swift in Sources */,
