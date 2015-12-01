@@ -71,13 +71,13 @@ extension ImageCapture {
         if let data = UIImageJPEGRepresentation(source.0, 0.7) {
             let path = source.1.URLByAppendingPathExtension("jpg")
             do {
-                try data.writeToURL(path, options: .AtomicWrite)
+                try data.writeToURL(path, options: .AtomicWrite) // something is not right here...not using the photos path.
                 completion(.Success(path))
             } catch let error as NSError where error.domain == NSCocoaErrorDomain && error.code == NSFileNoSuchFileError {
                 // if the path does not exist, then attempt to create it
                 let fm = NSFileManager.defaultManager()
                 do {
-                    try fm.createDirectoryAtURL(source.1.URLByDeletingLastPathComponent!,
+                    try fm.createDirectoryAtURL(source.1.baseURL!,
                         withIntermediateDirectories:true,
                         attributes: nil)
 

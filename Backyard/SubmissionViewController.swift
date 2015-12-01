@@ -38,14 +38,15 @@ class SubmissionViewController: UIViewController {
 
 extension SubmissionViewController {
     func getStartedTapped(sender: UIButton?) {
-        // need to create a new submission instance
-        // and pass it into the next controller.
-
-        // present the photos controller...
+        // present the photos controller...with a new submission
         let photoController = UIStoryboard.getViewController(identifier: "SubmissionPhotos") as! SubmissionPhotosController
-        photoController.submission = Submission()
-        
-        self.navigationController?.pushViewController(photoController, animated: true)
+        switch AppDelegate.currentAppModel().newSubmission() {
+        case let .Success(submission):
+            photoController.submission = submission
+            self.navigationController?.pushViewController(photoController, animated: true)
+        case let .Error(error):
+            print("unable to create new submission: \(error)")
+        }
     }
 
     func listButtonTapped(sender: UIBarButtonItem?) {

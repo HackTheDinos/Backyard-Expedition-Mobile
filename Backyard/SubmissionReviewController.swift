@@ -67,7 +67,7 @@ extension SubmissionReviewController {
         self.submission?.save(Submission.submissionDirectory(), completion: { result in
             switch result {
             case .Success(let url):
-                AppDelegate.currentAppModel().submissions.append(self.submission!)
+                AppDelegate.currentAppModel().addSubmission(self.submission!)
                 print("successfully saved the submission: \(url)")
             case .Error(let error):
                 print("error saving the submission: \(error)")

@@ -109,4 +109,16 @@ extension ListController: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         return cell
     }
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let submission = appModel?.submissionsByDate()[indexPath.row] {
+            switch AppDelegate.currentAppModel().removeSubmission(submission) {
+            case .Success(_):
+                self.collectionView.deleteItemsAtIndexPaths([indexPath])
+            case let .Error(error):
+                print("error removing submission: \(error)")
+            }
+        }
+    }
 }
+

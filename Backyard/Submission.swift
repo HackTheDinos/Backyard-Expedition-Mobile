@@ -49,7 +49,7 @@ class Submission: NSObject, NSCoding {
     // where should that limit be enforced?
     // also, the instructions ask that each photo be no larger than 500kB
     // should we compress on upload or storage?
-    var photos: [NSURL]
+    private(set) var photos: [NSURL]
 
     // create a new record with a generated record id
     convenience override init() {
@@ -177,6 +177,7 @@ extension Submission {
             .next { url in
                 self.photos.append(url)
                 completion(.Success(url))
+                // todo: create a signal for photo set add/remove
             }
             .error { error in
                 completion(.Error(error))
