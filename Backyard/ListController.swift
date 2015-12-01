@@ -53,6 +53,8 @@ class ListController: UIViewController {
     weak var appModel = AppDelegate.currentAppModel()
     var collectionView: UICollectionView!
 
+    var noItemView: UIView!
+
     private let formatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         formatter.dateStyle = .MediumStyle
@@ -78,6 +80,32 @@ class ListController: UIViewController {
         collectionView?.snp_makeConstraints(closure: { (make) -> Void in
             make.edges.equalTo(view.snp_edges)
         })
+
+        noItemView = UIView(frame: CGRectZero)
+        noItemView.backgroundColor = UIColor.lightGrayColor()
+
+        let noItemLabel = UILabel(frame: CGRectZero)
+        noItemLabel.text = NSLocalizedString("No submissions created yet.", comment: "Submission List label")
+        noItemLabel.numberOfLines = 0
+        noItemLabel.textColor = UIColor.lightTextColor()
+        noItemLabel.sizeToFit()
+
+        noItemView.addSubview(noItemLabel)
+        view.addSubview(noItemView)
+        noItemLabel.snp_makeConstraints { (make) -> Void in
+            make.center.equalTo(noItemView.snp_center)
+        }
+        noItemView.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(view.snp_leadingMargin)
+            make.trailing.equalTo(view.snp_trailingMargin)
+            make.top.equalTo(snp_topLayoutGuideBottom).offset(20.0)
+            make.height.equalTo(noItemLabel).offset(100.0)
+        }
+
+        updateNoItemsLabel((appModel?.submissions.count)!)
+        appModel?.submissionSignal.next { [weak self] num in
+            self?.updateNoItemsLabel(num)
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -89,6 +117,10 @@ class ListController: UIViewController {
             let dateLabelHeight:CGFloat = 20.0
             layout.itemSize = CGSize(width: dimension, height: dimension + dateLabelHeight)
         }
+    }
+
+    func updateNoItemsLabel(num: Int) -> () {
+        noItemView.hidden = (num > 0)
     }
 }
 
