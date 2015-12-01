@@ -104,7 +104,7 @@ class ListController: UIViewController {
 
         updateNoItemsLabel((appModel?.submissions.count)!)
         appModel?.submissionSignal.next { [weak self] num in
-            self?.updateNoItemsLabel(num)
+            self?.updateNoItemsLabel(num, animated: true)
         }
     }
 
@@ -119,8 +119,24 @@ class ListController: UIViewController {
         }
     }
 
-    func updateNoItemsLabel(num: Int) -> () {
-        noItemView.hidden = (num > 0)
+    func updateNoItemsLabel(num: Int, animated: Bool = false) -> () {
+        let shouldHide = (num > 0)
+        guard noItemView.hidden != shouldHide else { return }
+
+        if animated == true {
+            let targetAlpha: CGFloat = (shouldHide ? 0.0 : 1.0)
+            self.noItemView.hidden = !shouldHide
+            self.noItemView.alpha = 1 - targetAlpha
+
+            UIView.animateWithDuration(0.3, animations: {
+                    self.noItemView.alpha = targetAlpha
+                }, completion: { _ in
+                    self.noItemView.hidden = shouldHide
+            })
+        }
+        else {
+            self.noItemView.hidden = shouldHide
+        }
     }
 }
 
@@ -131,6 +147,8 @@ extension ListController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SubmissionCell", forIndexPath: indexPath) as! SubmissionCell
+        guard appModel?.submissions.count > indexPath.row else { return cell }
+        
         if let submission = appModel?.submissionsByDate()[indexPath.row] {
             cell.dateLabel.text = formatter.stringFromDate(submission.date)
             if let photoUrl = submission.photos.first {
@@ -143,6 +161,8 @@ extension ListController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard appModel?.submissions.count > indexPath.row else { return }
+
         if let submission = appModel?.submissionsByDate()[indexPath.row] {
             switch AppDelegate.currentAppModel().removeSubmission(submission) {
             case .Success(_):
